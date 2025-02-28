@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 class Movie {
   final int id;
   final String title;
-  final String Overview;
+  final String overview;
   final String posterPath;
   final String backdropPath;
   final String rilisDate;
@@ -11,7 +9,7 @@ class Movie {
 
   Movie({ required this.id,
     required this.title,
-    required this.Overview,
+    required this.overview,
     required this.posterPath,
     required this.backdropPath,
     required this.rilisDate,
@@ -22,7 +20,7 @@ class Movie {
 
   id: json['id'],
   title: json['title'],
-  Overview: json['Overview'],
+  overview: json['overview'],
   posterPath: json['posterPath'],
   backdropPath: json['backdropPath'],
   rilisDate: json['rilisDate'],

@@ -5,26 +5,29 @@ import 'package:pab2project/services/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen> {
   final ApiService _apiService = ApiService();
+
   List<Movie> _allMovies = [];
   List<Movie> _trendingMovies = [];
   List<Movie> _popularMovies = [];
+
   @override
   void initState() {
     super.initState();
     _loadMovies();
   }
+
   Future<void> _loadMovies() async {
-    final List<Map<String, dynamic>> allMoviesData =
-    await _apiService.getAllMovies();
-    final List<Map<String, dynamic>> trendingMoviesData =
-    await _apiService.getTrendingMovies();
-    final List<Map<String, dynamic>> popularMoviesData =
-    await _apiService.getPopularMovies();
+    final List<Map<String, dynamic>> allMoviesData = await _apiService.getAllMovies();
+    final List<Map<String, dynamic>> trendingMoviesData = await _apiService.getTrendingMovies();
+    final List<Map<String, dynamic>> popularMoviesData = await _apiService.getPopularMovies();
+
     setState(() {
       _allMovies = allMoviesData.map((e) => Movie.fromJson(e)).toList();
       _trendingMovies =
@@ -33,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Movie.fromJson(e)).toList();
     });
   }
+
   Widget _buildMoviesList(String title, List<Movie> movies) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
             title,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-        ),SizedBox(
+        ),
+        SizedBox(
           height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -68,8 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.cover,),
                       SizedBox(height: 4,),
                       Text(movie.title.length > 14 ?
-                      '${movie.title.substring(0, 10)}...' : movie.title,style: const TextStyle(fontWeight:
-                      FontWeight.bold), ),
+                      '${movie.title.substring(0, 10)}...' : movie.title,
+                        style: const TextStyle(fontWeight:
+                        FontWeight.bold), ),
                     ],
                   ),
                 ),

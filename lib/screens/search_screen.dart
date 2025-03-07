@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart%20';
 import 'package:pab2project/models/movie.dart';
+import 'package:pab2project/screens/detail_screen.dart';
 import 'package:pab2project/services/api_service.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -10,7 +11,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  ApiService _apiService = ApiService();
+  final ApiService _apiService = ApiService();
   final TextEditingController _searchController = TextEditingController();
   List<Movie> _searchResults = [];
 
@@ -22,8 +23,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose(){
-    super.dispose();
     _searchController.dispose();
+    super.dispose();;
   }
 
   void _searchMovie() async {
@@ -35,6 +36,9 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     final List<Map<String, dynamic>> _searchData =
     await _apiService.searchMovies(_searchController.text);
+    setState(() {
+      _searchResults = _searchData.map((e) => Movie.fromJson(e)).toList();
+    });
   }
 
   @override
@@ -86,13 +90,23 @@ class _SearchScreenState extends State<SearchScreen> {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 4),
                           child: ListTile(
-                            leading: Image.network('https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                              height: 50,
-                              width: 50,
+                             leading: SizedBox(
+                               height: 50,
+                                 width: 50,
+                                 child: Image.network(
+                                    movie.posterPath != 'none'
+                                     ?'https://image.tmdb.org/t/p/w500${movie.posterPath}'
+                              : 'https://fakeimg.pl/400x400/ff0000/000000',
                               fit: BoxFit.cover,
                             ),
+                             ),
                             title: Text(movie.title),
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(movie: movie),
+                              ),
+                              );
+                            },
+
                           ),
                         );
                       },

@@ -5,7 +5,6 @@ import 'package:pab2project/models/movie.dart';
 import 'package:pab2project/screens/detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
   @override

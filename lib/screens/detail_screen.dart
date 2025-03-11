@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:pab2project/models/movie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class DetailScreen extends StatefulWidget {
   final Movie movie;
   const DetailScreen({super.key, required this.movie});
